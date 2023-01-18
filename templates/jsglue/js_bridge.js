@@ -70,7 +70,7 @@ var {{ namespace }} = new(function () {
                 } else {
                   url += '&';
                 }
-                url += r + '=' + rule[r];
+                url += r + '=' + encodeURIComponent(rule[r]);
               }
             }
             if (has_anchor) {
