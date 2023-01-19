@@ -1,9 +1,8 @@
-from flask import render_template
-from flask import make_response
-from flask import url_for
-from markupsafe import Markup
 import re
 import json
+
+from flask import render_template, make_response, url_for, Blueprint
+from markupsafe import Markup
 
 JSGLUE_JS_PATH = '/jsglue.js'
 JSGLUE_NAMESPACE = 'Flask'
@@ -37,6 +36,14 @@ class JSGlue(object):
 
     def init_app(self, app):
         self.app = app
+
+        blueprint = Blueprint(
+            'flask-jsglue',
+            __name__,
+            template_folder='templates'
+        )
+
+        app.register_blueprint(blueprint)
 
         @app.route(JSGLUE_JS_PATH)
         def serve_js():
